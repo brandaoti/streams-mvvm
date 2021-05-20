@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:streams_mvvm/app/home_controller.dart';
+import 'package:streams_mvvm/app/home_view_model.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key key}) : super(key: key);
@@ -9,15 +9,7 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  final controller = HomeController();
-
-  var myFeature;
-
-  @override
-  void initState() {
-    super.initState();
-    myFeature = controller.carregarLista();
-  }
+  final controller = HomeViewModel();
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +20,8 @@ class _HomeViewState extends State<HomeView> {
         // mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Expanded(
-            child: FutureBuilder<void>(
-              future: myFeature,
+            child: StreamBuilder<List<int>>(
+              stream: controller.stream,
               builder: (context, snapshot) {
                 switch (snapshot.connectionState) {
                   case ConnectionState.none:
@@ -45,10 +37,12 @@ class _HomeViewState extends State<HomeView> {
                       //
                     } else {
                       // !
-                      return ListView.builder(
-                        itemCount: controller.lista.length,
-                        itemBuilder: (context, index) {
 
+                      var lista = snapshot.data ?? [];
+
+                      return ListView.builder(
+                        itemCount: lista.length,
+                        itemBuilder: (context, index) {
                           return Center(
                             child: Container(
                               padding: EdgeInsets.all(10),
@@ -70,10 +64,9 @@ class _HomeViewState extends State<HomeView> {
           //
           ElevatedButton(
             child: Text('Carregar lista'),
-            onPressed: () async {
-              await controller.carregarLista();
-              setState(() {});
-
+            onPressed: () {
+              controller.carregarLista();
+              print('aqui');
             },
           )
         ],
