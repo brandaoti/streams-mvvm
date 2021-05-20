@@ -10,6 +10,7 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   final controller = HomeController();
+
   var myFeature;
 
   @override
@@ -20,6 +21,7 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
+    //
     return Scaffold(
       backgroundColor: Colors.orange,
       body: Column(
@@ -30,7 +32,6 @@ class _HomeViewState extends State<HomeView> {
               future: myFeature,
               builder: (context, snapshot) {
                 print(snapshot.connectionState);
-
                 switch (snapshot.connectionState) {
                   case ConnectionState.none:
 
@@ -49,7 +50,7 @@ class _HomeViewState extends State<HomeView> {
                         itemCount: controller.lista.length,
                         itemBuilder: (context, index) {
                           var teste = controller.lista[index];
-
+                          
                           return Center(
                             child: Container(
                               padding: EdgeInsets.all(10),
@@ -74,6 +75,7 @@ class _HomeViewState extends State<HomeView> {
             onPressed: () async {
               await controller.carregarLista();
               setState(() {});
+
             },
           )
         ],
