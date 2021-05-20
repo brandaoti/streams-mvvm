@@ -10,19 +10,27 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   final controller = HomeController();
+  var myFeature;
+
+  @override
+  void initState() {
+    super.initState();
+    myFeature = controller.carregarLista();
+  }
 
   @override
   Widget build(BuildContext context) {
-    //
     return Scaffold(
       backgroundColor: Colors.orange,
       body: Column(
         // mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Expanded(
-            child: FutureBuilder<List<int>>(
-              future: controller.lista,
+            child: FutureBuilder<void>(
+              future: myFeature,
               builder: (context, snapshot) {
+                print(snapshot.connectionState);
+
                 switch (snapshot.connectionState) {
                   case ConnectionState.none:
 
@@ -36,10 +44,12 @@ class _HomeViewState extends State<HomeView> {
                       return Center(child: Text('Erro ao carregar lista'));
                       //
                     } else {
-                      var result = snapshot.data ?? [];
+                      // !
                       return ListView.builder(
-                        itemCount: result.length,
+                        itemCount: controller.lista.length,
                         itemBuilder: (context, index) {
+                          var teste = controller.lista[index];
+
                           return Center(
                             child: Container(
                               padding: EdgeInsets.all(10),
@@ -47,7 +57,7 @@ class _HomeViewState extends State<HomeView> {
                               decoration: BoxDecoration(
                                 border: Border.all(),
                               ),
-                              child: Text('$index'),
+                              child: Text(index.toString()),
                             ),
                           );
                         },
@@ -61,10 +71,9 @@ class _HomeViewState extends State<HomeView> {
           //
           ElevatedButton(
             child: Text('Carregar lista'),
-            onPressed: () {
-              setState(() {
-                controller.carregarLista();
-              });
+            onPressed: () async {
+              await controller.carregarLista();
+              setState(() {});
             },
           )
         ],
