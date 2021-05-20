@@ -7,9 +7,5 @@ class HomeController {
 
   Future<void> carregarLista() async {
     await _model.popularLista();
-    get lista => _model.novaLista;
-
-  carregarLista() {
-    return _model.popularLista;
   }
 }

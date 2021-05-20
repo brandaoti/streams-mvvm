@@ -9,4 +9,5 @@ class HomeModel {
     await Future.delayed(Duration(seconds: 2));
 
     _minhaLista.addAll(List<int>.filled(10, 1));
+  }
 }
