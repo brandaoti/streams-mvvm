@@ -31,7 +31,6 @@ class _HomeViewState extends State<HomeView> {
             child: FutureBuilder<void>(
               future: myFeature,
               builder: (context, snapshot) {
-                print(snapshot.connectionState);
                 switch (snapshot.connectionState) {
                   case ConnectionState.none:
 
@@ -49,8 +48,7 @@ class _HomeViewState extends State<HomeView> {
                       return ListView.builder(
                         itemCount: controller.lista.length,
                         itemBuilder: (context, index) {
-                          var teste = controller.lista[index];
-                          
+
                           return Center(
                             child: Container(
                               padding: EdgeInsets.all(10),
