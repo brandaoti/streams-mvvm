@@ -10,19 +10,40 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   final controller = HomeController();
+<<<<<<< HEAD
 
   @override
   Widget build(BuildContext context) {
     //
+=======
+  var myFeature;
+
+  @override
+  void initState() {
+    super.initState();
+    myFeature = controller.carregarLista();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+>>>>>>> develop
     return Scaffold(
       backgroundColor: Colors.orange,
       body: Column(
         // mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Expanded(
+<<<<<<< HEAD
             child: FutureBuilder<List<int>>(
               future: controller.lista,
               builder: (context, snapshot) {
+=======
+            child: FutureBuilder<void>(
+              future: myFeature,
+              builder: (context, snapshot) {
+                print(snapshot.connectionState);
+
+>>>>>>> develop
                 switch (snapshot.connectionState) {
                   case ConnectionState.none:
 
@@ -36,10 +57,19 @@ class _HomeViewState extends State<HomeView> {
                       return Center(child: Text('Erro ao carregar lista'));
                       //
                     } else {
+<<<<<<< HEAD
                       var result = snapshot.data ?? [];
                       return ListView.builder(
                         itemCount: result.length,
                         itemBuilder: (context, index) {
+=======
+                      // !
+                      return ListView.builder(
+                        itemCount: controller.lista.length,
+                        itemBuilder: (context, index) {
+                          var teste = controller.lista[index];
+
+>>>>>>> develop
                           return Center(
                             child: Container(
                               padding: EdgeInsets.all(10),
@@ -47,7 +77,11 @@ class _HomeViewState extends State<HomeView> {
                               decoration: BoxDecoration(
                                 border: Border.all(),
                               ),
+<<<<<<< HEAD
                               child: Text('$index'),
+=======
+                              child: Text(index.toString()),
+>>>>>>> develop
                             ),
                           );
                         },
@@ -61,10 +95,16 @@ class _HomeViewState extends State<HomeView> {
           //
           ElevatedButton(
             child: Text('Carregar lista'),
+<<<<<<< HEAD
             onPressed: () {
               setState(() {
                 controller.carregarLista();
               });
+=======
+            onPressed: () async {
+              await controller.carregarLista();
+              setState(() {});
+>>>>>>> develop
             },
           )
         ],
