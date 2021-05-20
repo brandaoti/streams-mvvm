@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:streams_mvvm/app/home_controller.dart';
+import 'package:streams_mvvm/app/home_view_model.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key key}) : super(key: key);
@@ -9,7 +9,7 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  final controller = HomeController();
+  final controller = HomeViewModel();
 
   @override
   Widget build(BuildContext context) {
