@@ -21,10 +21,10 @@ class _HomeViewState extends State<HomeView> {
         children: [
           Expanded(
             child: StreamBuilder<List<int>>(
-              stream: controller.streamController.stream,
+              stream: controller.stream,
               builder: (context, snapshot) {
                 switch (snapshot.connectionState) {
-                  case ConnectionState.active:
+                  case ConnectionState.none:
 
                   case ConnectionState.waiting:
                     return Center(
