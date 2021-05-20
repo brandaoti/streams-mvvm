@@ -1,11 +1,18 @@
+import 'dart:async';
+
 import 'package:streams_mvvm/app/home_model.dart';
 
 class HomeController {
   final _model = HomeModel();
 
-  List<int> get lista => _model.novaLista;
+  StreamController<List<int>> streamController = StreamController();
 
-  Future<void> carregarLista() async {
-    await _model.popularLista();
+  get getLista => _model.lista;
+
+  carregarLista() {
+    _model.popularLista();
+    _model.lista.then((value) {
+      streamController.add(value);
+    });
   }
 }
